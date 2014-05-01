@@ -87,7 +87,8 @@ public class Engine {
             case "play-card":
             case "out-card":
                 return core.doPlayCardWithRoundNumber(parameter);
-
+                   case "oo":
+                return core.doPlayCard革命(parameter);
             case "拿"://在我的環境NetBeans無法執行，但是在DOS可以
             case "拿牌":
             case "t":
@@ -141,6 +142,11 @@ public class Engine {
     public boolean doVersion() {
         System.out.println(" TODO   [A內政-亞歷山大圖書館 科技生產+1，文化生產+1，內政手牌上限+1，軍事手牌上限+1]  ");
         //getBuildingLimit()
+        
+        System.out.println("  === ver 0.70 ===  2014-5-1, 10:46, by Max　");
+        System.out.println("    1. 新增簡易指令 oo x 預計要做成革命指令 ");
+        System.out.println("    2. note指令第一層在Engine第二層在EngineCore第三層在Player ");
+        
         System.out.println("  === ver 0.69 ===  2014-5-1, 10:00, by Max　");
         System.out.println("    1. 新增簡易指令 ");
         System.out.println("    2.使用d 檢視玩牌的歷史紀錄，目前只記錄有效的指令");

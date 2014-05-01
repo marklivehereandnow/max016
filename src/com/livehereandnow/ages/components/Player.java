@@ -453,6 +453,103 @@ public class Player {
 
         return true;
     }
+     public boolean doPlayCard革命(int cardNum, int roundNum) throws AgesException {
+        //
+        // 
+        //
+        if ((cardNum + 1) > this.get手上的牌().size()) {
+            System.out.println("... index of cards-on-hand should be from 0 to " + (this.get手上的牌().size() - 1));
+
+            return false;
+        }
+
+        //
+        //
+        //
+        Card card = this.get手上的牌().get(cardNum);
+        //
+        // card must stay on hand for at least one round
+        //
+
+//        ver 0.65    1. ###BUG### 我拿了一張農場牌，但是不能當回合打出，[時代I內政-灌溉-農場]...you cannot play this card this round 
+//          把此區塊暫時抑制
+//        if (card.getRound() == roundNum) {//當這張牌是這回合拿的牌
+//            System.out.println("... you cannot play this card this round ");
+//
+//            return false;
+//        }
+        //this.get桌上的牌().add(this.get手上的牌().get(cardNum));
+//        System.out.print(" ...這張牌, 類型=" + this.get手上的牌().get(cardNum).get類型());
+        //        當打出科技牌的時候
+//        灌溉為例
+//        System.out.println(" 右上=" + this.get手上的牌().get(cardNum).get右上());
+
+//        if (this.get手上的牌().get(cardNum).get類型() == CardType.科技) {
+        if (card.get類型() == CardType.領袖) {
+//          
+//            table.get
+            table.getLeaderDeck().setCard(card);
+//            table.getLeaderDeck().
+        } else if (card.get類型() == CardType.科技) {
+//            System.out.println("123");
+            switch (this.get手上的牌().get(cardNum).get右上()) {
+                case "政府":
+                    table.setCard政府(card);
+
+//                    ages農場[card.get時代()] = card;
+                    break;
+
+//                case "農場": {
+//                    System.out.println("準備設定已打出");
+//                    this.農場[this.get手上的牌().get(cardNum).get時代()].set打出(true);
+//                    System.out.println("打出了嗎?" + this.農場[this.get手上的牌().get(cardNum).get時代()].is打出());
+//                }
+                // ver 0.44 農場 [A-農業--農場  黃點:0 藍點:0] 
+                case "實驗室":
+                    table.setCard(card, 1, card.get時代());
+
+//                    /ages實驗室[card.get時代()] = card;
+                    break;
+                case "神廟":
+//                    ages神廟[card.get時代()] = card;
+                    table.setCard(card, 2, card.get時代());
+                    break;
+                case "農場":
+                    table.setCard(card, 3, card.get時代());
+
+//                    ages農場[card.get時代()] = card;
+                    break;
+                case "礦山":
+                    table.setCard(card, 4, card.get時代());
+
+//                    ages農場[card.get時代()] = card;
+                    break;
+                case "步兵":
+                    table.setCard(card, 5, card.get時代());
+
+//                    ages農場[card.get時代()] = card;
+                    break;
+
+                default:
+                    table.getOther桌上的牌().add(card);
+//                    System.out.println("  ...to Other桌上的牌() for a while");
+            }
+
+        } else {
+            //
+            // eventually we will find proper location for different types of cards
+            //
+//            this.get桌上的牌().add(this.get手上的牌().get(cardNum));
+            // ver 0.48
+            System.out.println("... DO AS WE CAN DO TO PUT IT TO PROPER GROUP!!!");
+            table.addCardToOther(card);
+
+        }
+        
+        this.get手上的牌().remove(cardNum);
+
+        return true;
+    }
 
     public boolean doBuild(int category, int age) throws AgesException {
         table.getCard(category, age).getYellowPoints().addPoints(1);

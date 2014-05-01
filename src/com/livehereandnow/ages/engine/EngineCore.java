@@ -253,6 +253,20 @@ public class EngineCore {
         return false;
     }
 
+    public boolean doPlayCard革命(int p1) throws AgesException {
+//            Card card = ;
+//        int cardPoint = 1;//DEBUG，假設需要一個內政點數來打牌
+        Card card = cardRow.getCards().get(p1);
+        if (get當前玩家().doPlayCard革命(p1, this.roundNum)) {
+            history.addRecord(roundNum, get當前玩家().getName(), "oo革命 " + p1, card.toString(1));
+            return true;
+        }
+
+        return false;
+    }
+
+    
+    
     public boolean doPlayCard(int k, int k2) throws AgesException {
         get當前玩家().doPlayCard(k, k2);
 
